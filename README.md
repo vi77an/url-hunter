@@ -3,7 +3,7 @@
 um script simples para filtrar credenciais de um domínio especifico numa base de dados com diversas URLs. sem complicação.
 
 ## como funciona? 🤔
-1. você fornece um arquivo `.txt` no formato `url:user:password` (uma por linha).
+1. você fornece um arquivo `.txt` no formato `url:log:pass` (uma por linha).
 2. escolhe um domínio ou parte dele para buscar.
 3. o script cria um novo arquivo com os resultados filtrados.
 
@@ -23,7 +23,7 @@ um script simples para filtrar credenciais de um domínio especifico numa base d
 
 ## exemplo de uso 🌟
 
-- arquivo de entrada no formato `url:user:password` (`db.txt`):
+- arquivo de entrada no formato `url:log:pass` (`db.txt`):
     ```
     https://instagram.com/:usuarioX:senha1
     https://facebook.com/:usuarioY:senha2
