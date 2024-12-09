@@ -36,4 +36,4 @@ um script simples para filtrar credenciais de um domínio especifico numa lista 
     ```
 
 ## dúvidas? 🛠️
-se precisar de ajuda, me envie uma mensagem no [telegram](t.me/vi77an)! 😊
+se precisar de ajuda, me envie uma mensagem no [telegram](https://t.me/vi77an)! 😊
