@@ -1,6 +1,6 @@
 # url hunter 🕵️‍♀️
 
-um script simples para filtrar credenciais de um domínio especifico numa lista de URLs. sem complicação.
+um script simples para filtrar credenciais de um domínio especifico numa base de dados com diversas URLs. sem complicação.
 
 ## como funciona? 🤔
 1. você fornece um arquivo `.txt` no formato `url:user:password` (uma por linha).
