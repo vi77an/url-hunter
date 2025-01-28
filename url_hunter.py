@@ -1,29 +1,57 @@
-def exibir_boas_vindas():
-    print(r"""
-             )    )            
-   )  (   ( /( ( /(   )        
-  /(( )\  )\()))\()| /(  (     
- (_))((_)((_)\((_)\)(_)) )\ )  
- _)((_|_)__  /__  ((_)_ _(_/(  
- \ V /| | / /  / // _` | ' \)) 
-  \_/ |_|/_/  /_/ \__,_|_||_|  
-                               
-         por: VL
-    """)
+import os
+#================##================#
+cor_reset = "\033[0m"     
+cor_vermelho = "\033[38;5;198m"  
+cor_p_roxo = "\033[38;5;135m"
+cor_p_azul = "\033[38;5;81m"
+cor_p_verde = "\033[38;5;119m"
+#================##================#
+
+def vulgo_bloody():
+    print(rf"""
+{cor_p_verde} ==* coded by *== {cor_p_roxo}
+
+ ██▒   █▓ ██▓ ██▓     ██▓    ▄▄▄       ███▄    █ 
+▓██░   █▒▓██▒▓██▒    ▓██▒   ▒████▄     ██ ▀█   █ 
+ ▓██  █▒░▒██▒▒██░    ▒██░   ▒██  ▀█▄  ▓██  ▀█ ██▒
+  ▒██ █░░░██░▒██░    ▒██░   ░██▄▄▄▄██ ▓██▒  ▐▌██▒
+   ▒▀█░  ░██░░██████▒░██████▒▓█   ▓██▒▒██░   ▓██░
+   ░ ▐░  ░▓  ░ ▒░▓  ░░ ▒░▓  ░▒▒   ▓▒█░░ ▒░   ▒ ▒ 
+   ░ ░░   ▒ ░░ ░ ▒  ░░ ░ ▒  ░ ▒   ▒▒ ░░ ░░   ░ ▒░
+     ░░   ▒ ░  ░ ░     ░ ░    ░   ▒      ░   ░ ░ 
+      ░   ░      ░  ░    ░  ░     ░  ░         ░ 
+     ░                                           
+      {cor_p_verde} ==*  {cor_vermelho}VL{cor_reset} ~ {cor_vermelho}villanelle{cor_reset} | {cor_vermelho}t.me/vi77an{cor_p_verde} *=={cor_reset}
+""")
 
 def abrir_arquivo():
-    while True:
-        arquivo_entrada = input("Qual o nome do arquivo com as URLs? (ex: db.txt): ").strip()
+    # Listar arquivos .txt no diretório atual
+    txt_files = [f for f in os.listdir('.') if os.path.isfile(f) and f.endswith('.txt')]
 
+    if not txt_files:
+        print(f"{cor_vermelho}[💔] Nenhum arquivo .txt foi encontrado no diretório atual.{cor_reset}")
+        exit(1)
+
+    print(f"{cor_p_roxo}[💌] Arquivos disponíveis:{cor_reset}")
+    for i, file in enumerate(txt_files, 1):
+        print(f"  [{i}] {file}")
+    print("  [0] Cancelar e sair")
+
+    while True:
         try:
-            with open(arquivo_entrada, 'r') as file:
-                linhas = file.read().splitlines()
-            return linhas
-        except FileNotFoundError:
-            print("Ei, não conseguimos encontrar esse arquivo!")
-            if input("Quer tentar novamente? (s/n): ").strip().lower() != 's':
-                print("Tudo bem, até mais!")
-                return None
+            choice = int(input(f"{cor_p_roxo}[*] Selecione o número do arquivo desejado: {cor_p_verde}"))
+            if choice == 0:
+                print(f"{cor_p_roxo}[👋] Operação cancelada. Até mais!{cor_reset}")
+                exit(0)
+            elif 1 <= choice <= len(txt_files):
+                input_file = txt_files[choice - 1]
+                with open(input_file, 'r') as file:
+                    linhas = file.read().splitlines()
+                return linhas
+            else:
+                print(f"{cor_vermelho}[💔] Escolha inválida. Tente novamente.{cor_reset}")
+        except ValueError:
+            print(f"{cor_vermelho}[💔] Entrada inválida. Digite um número correspondente a um arquivo.{cor_reset}")
 
 def filtrar_linhas(linhas, termo_busca):
     resultados = []
@@ -36,38 +64,41 @@ def filtrar_linhas(linhas, termo_busca):
     return resultados
 
 def salvar_resultados(resultados, termo_busca):
-    arquivo_saida = f"resultado_{termo_busca.replace('.', '_')}.txt"
-    with open(arquivo_saida, 'w') as file:
+    output_file = f"resultado_{termo_busca.replace('.', '_')}.txt"
+    with open(output_file, 'w') as file:
         file.write('\n'.join(resultados))
-    print(f"Prontinho! Os resultados estão no arquivo: '{arquivo_saida}'.")
+    print(f"{cor_p_roxo}[💚] CONFIRA >> {cor_p_verde}{output_file}{cor_reset}.")
 
 def realizar_pesquisa(linhas):
     while True:
-        termo_busca = input("Qual domínio ou parte do domínio você quer filtrar? (ex: insta): ").strip()
+        termo_busca = input(f"{cor_p_roxo}[*] Domínio ou parte do domínio (ex: insta): {cor_reset}").strip()
         resultados = filtrar_linhas(linhas, termo_busca)
 
         if resultados:
             salvar_resultados(resultados, termo_busca)
             break
         else:
-            print(f"Vixe, não encontramos nada com '{termo_busca}'.")
-            if input("Quer tentar novamente com outro termo? (s/n): ").strip().lower() != 's':
-                print("Até mais! Esperamos que tenha dado certo!")
-                return
+            print(f"{cor_vermelho}[!] Vixe, não encontramos nada com '{termo_busca}'.")
+            if input(f"{cor_p_roxo}[?] Tentar novamente com outro termo? (s/n): ").strip().lower() != 's':
+                print(f"\n{cor_p_roxo}[👋] Até mais!")
+                return exit()
 
 def continuar_ou_encerrar():
     while True:
-        continuar = input("Quer continuar fazendo pesquisas? (s para continuar, n para encerrar): ").strip().lower()
+        continuar = input(f"{cor_p_roxo}[?] Continuar? (s/n): ").strip().lower()
         if continuar == 's':
             return True
         elif continuar == 'n':
-            print("Ok, até a próxima!")
+            print(f"{cor_p_roxo}[👋] Ok, até a próxima!")
             return False
         else:
-            print("Por favor, digite 's' para continuar ou 'n' para encerrar.")
+            print(f"{cor_vermelho}[!] Por favor, digite 's' para continuar ou 'n' para encerrar.")
 
 def main():
-    exibir_boas_vindas()
+    vulgo_bloody()
+    print('+-+-+-+-+-++-+-+-+-+-++-+-+-+')
+    print(f'.:|| {cor_p_roxo}URL:LOG:PASS HUNTER {cor_reset}||:.')
+    print('+-+-+-+-+-++-+-+-+-+-++-+-+-+\n')
 
     while True:
         linhas = abrir_arquivo()
